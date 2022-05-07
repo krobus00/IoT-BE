@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      env_file: .env
+      args:
+        github_id: "${GITHUB_ID}"
+        github_token: "${GITHUB_TOKEN}"
