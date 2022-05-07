@@ -1,0 +1,39 @@
+package {{ .PackageName }}
+
+import (
+	"context"
+	"fmt"
+
+	"{{ .ModuleName }}/model"
+    kro_model "github.com/krobus00/krobot-building-block/model"
+	kro_util "github.com/krobus00/krobot-building-block/util"
+)
+
+
+func (svc *service) GetAll{{ .EntityName }}(ctx context.Context, payload *kro_model.PaginationRequest) (*kro_model.PaginationResponse, error) {
+	span := kro_util.StartTracing(ctx, tag, tracingGetAll{{ .EntityName }})
+	defer span.Finish()
+
+	resp := new(kro_model.PaginationResponse)
+	items := make([]*model.{{ .EntityName }}Response, 0)
+
+	{{ .PluralName }}, count, err := svc.repository.{{ .EntityName }}Repository.GetAll{{ .EntityName }}(ctx, svc.db, payload)
+	if err != nil {
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetAll{{ .EntityName }}, err))
+		return nil, err
+	}
+	if {{ .PluralName }} == nil {
+		return nil, nil
+	}
+	for _, {{ $.SingularName }} := range {{ .PluralName }} {
+        items = append(items, &model.{{ .EntityName }}Response{
+            ID:      {{ $.SingularName }}.ID,
+            {{- range .DatabaseModels}}
+            {{ .FieldName }}: {{ $.SingularName }}.{{ .FieldName }},
+            {{- end}}
+		})
+	}
+	resp.BuildResponse(payload, {{ .PluralName }}, count)
+
+	return resp, nil
+}

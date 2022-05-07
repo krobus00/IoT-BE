@@ -1,0 +1,47 @@
+package {{ .PackageName }}
+
+import (
+	"context"
+
+	"github.com/jmoiron/sqlx"
+	"{{ .ModuleName }}/api/repository"
+	"{{ .ModuleName }}/infrastructure"
+	"{{ .ModuleName }}/model"
+    kro_model "github.com/krobus00/krobot-building-block/model"
+)
+
+const (
+	tag = `[{{ .EntityName }}Service]`
+
+	tracingGetAll{{ .EntityName }}     = "GetAll{{ .EntityName }}"
+	tracingGet{{ .EntityName }}ByID    = "Get{{ .EntityName }}ByID"
+	tracingStore{{ .EntityName }}      = "Store{{ .EntityName }}"
+	tracingUpdate{{ .EntityName }}ByID = "Update{{ .EntityName }}ByID"
+	tracingDelete{{ .EntityName }}ByID = "Delete{{ .EntityName }}ByID"
+)
+
+type (
+	Service interface {
+		GetAll{{ .EntityName }}(ctx context.Context, payload *kro_model.PaginationRequest) (*kro_model.PaginationResponse, error)
+		Store{{ .EntityName }}(ctx context.Context, payload *model.Create{{ .EntityName }}Request) error
+		Get{{ .EntityName }}ByID(ctx context.Context, payload *model.Show{{ .EntityName }}Request) (*model.{{ .EntityName }}Response, error)
+		Update{{ .EntityName }}ByID(ctx context.Context, payload *model.Update{{ .EntityName }}Request) error
+		Delete{{ .EntityName }}ByID(ctx context.Context, payload *model.Delete{{ .EntityName }}Request) error
+	}
+	service struct {
+		logger     infrastructure.Logger
+		db         *sqlx.DB
+		repository repository.Repository
+	}
+)
+
+func New(
+	infrastructure infrastructure.Infrastructure,
+	repository repository.Repository,
+) Service {
+	return &service{
+		logger:     infrastructure.Logger,
+		db:         infrastructure.Database.SqlxDB,
+		repository: repository,
+	}
+}

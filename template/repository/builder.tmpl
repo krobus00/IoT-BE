@@ -1,0 +1,66 @@
+package {{ .PackageName }}
+
+import (
+	sq "github.com/Masterminds/squirrel"
+    kro_model "github.com/krobus00/krobot-building-block/model"
+	db_models "{{ .ModuleName }}/model/database"
+)
+
+var (
+	searchFields = []string{"id"}
+	whiteList    = kro_model.ColumnWhiteList{
+		"id":         true,		
+		"created_at": true,
+		"updated_at": true,
+		"deleted_at": true,
+	}
+	columnMapping = kro_model.ColumnMapping{
+		"id":         "id",
+		"createdAt":  "created_at",
+		"updatedAt": "updated_at",
+		"deletedAt":  "deleted_at",
+	}
+)
+
+func (r *repository) buildInsertQuery(input *db_models.{{ .EntityName }}) sq.InsertBuilder {
+	vals := sq.Eq{
+		"id":      input.ID,
+        {{- range .DatabaseModels}}
+            "{{.Column}}": input.{{.FieldName}},
+        {{- end}}
+	}
+	insertBuilder := sq.Insert(r.GetTableName()).SetMap(vals)
+	return insertBuilder
+}
+
+func (r *repository) buildSelectQuery() sq.SelectBuilder {
+	selection := []string{
+		"id",
+		{{- range .DatabaseModels}}
+            "{{.Column}}",
+        {{- end}}
+		"created_at",
+		"updated_at",
+		"deleted_at",
+	}
+	selectBuilder := sq.Select(selection...).Where(sq.Eq{"deleted_at": nil}).From(r.GetTableName())
+	return selectBuilder
+}
+
+func (r *repository) buildUpdateQuery(input *db_models.{{ .EntityName }}) sq.UpdateBuilder {
+	vals := sq.Eq{
+		{{- range .DatabaseModels}}
+            "{{.Column}}": input.{{.FieldName}},
+        {{- end}}
+	}
+	updateBuilder := sq.Update(r.GetTableName()).SetMap(vals)
+	return updateBuilder
+}
+
+func (r *repository) buildDeleteQuery() sq.UpdateBuilder {
+	vals := sq.Eq{
+		"deleted_at": sq.Expr("NOW()"),
+	}
+	updateBuilder := sq.Update(r.GetTableName()).SetMap(vals)
+	return updateBuilder
+}

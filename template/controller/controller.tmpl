@@ -1,0 +1,26 @@
+package {{ .PackageName }}
+
+import (
+	ut "github.com/go-playground/universal-translator"
+	"{{ .ModuleName }}/api/service/{{ .PackageName }}"
+	"{{ .ModuleName }}/infrastructure"
+	"go.uber.org/fx"
+)
+
+const (
+	tag = "[{{ .EntityName }}Controller]"
+
+	tracingGetAll{{ .EntityName }} = "handleGetAll{{ .EntityName }}"
+	tracingShow{{ .EntityName }}   = "handleShow{{ .EntityName }}"
+	tracingStore{{ .EntityName }}  = "handleCreate{{ .EntityName }}"
+	tracingUpdate{{ .EntityName }} = "handleUpdate{{ .EntityName }}"
+	tracingDelete{{ .EntityName }} = "handleDelete{{ .EntityName }}"
+)
+
+type Controller struct {
+	fx.In
+
+	Logger      infrastructure.Logger
+	Translator  *ut.UniversalTranslator
+	{{ .EntityName }}Service {{ .PackageName }}.Service
+}

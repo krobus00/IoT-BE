@@ -1,0 +1,33 @@
+package model
+
+type {{ .EntityName }}Response struct {
+	ID     string `json:"id"`
+    {{- range .Models }}
+        {{.Name}} {{.DataType}} `json:"{{.Json}}" validate:"required" label:"{{.Label}}"`
+    {{- end}}
+}
+
+type GetAll{{ .EntityName }}Response struct {
+	Items []*{{ .EntityName }}Response `json:"items"`
+}
+
+type Create{{ .EntityName }}Request struct {
+    {{- range .Models }}
+        {{.Name}} {{.DataType}} `json:"{{.Json}}" validate:"required" label:"{{.Label}}"`
+    {{- end}}
+}
+
+type Show{{ .EntityName }}Request struct {
+	ID string `param:"id" validate:"required" label:"id"`
+}
+
+type Update{{ .EntityName }}Request struct {
+	ID     string `param:"id" validate:"required" label:"id"`
+	{{- range .Models}}
+        {{.Name}} {{.DataType}} `json:"{{.Json}}" validate:"required" label:"{{.Label}}"`
+    {{- end}}
+}
+
+type Delete{{ .EntityName }}Request struct {
+	ID string `param:"id" validate:"required" label:"id"`
+}

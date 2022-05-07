@@ -1,0 +1,34 @@
+package {{ .PackageName }}
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"net/http"
+
+	"{{ .ModuleName }}/model"
+	"{{ .ModuleName }}/model/database"
+    kro_model "github.com/krobus00/krobot-building-block/model"
+	kro_util "github.com/krobus00/krobot-building-block/util"
+)
+
+func (svc *service) Get{{ .EntityName }}ByID(ctx context.Context, payload *model.Show{{ .EntityName }}Request) (*model.{{ .EntityName }}Response, error) {
+	span := kro_util.StartTracing(ctx, tag, tracingGet{{ .EntityName }}ByID)
+	defer span.Finish()
+
+	{{ .SingularName }}, err := svc.repository.{{ .EntityName }}Repository.Get{{ .EntityName }}ByID(ctx, svc.db, &database.{{ .EntityName }}{ID: payload.ID})
+	if err != nil {
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGet{{ .EntityName }}ByID, err))
+		return nil, err
+	}
+	if {{ .SingularName }} == nil {
+		return nil, kro_model.NewHttpCustomError(http.StatusNotFound, errors.New("{{ .EntityName }} Not Found"))
+	}
+	resp := &model.{{ .EntityName }}Response{
+        ID:     {{ .SingularName }}.ID,
+		{{- range .DatabaseModels}}
+            {{ .FieldName }}: {{ $.SingularName }}.{{ .FieldName }},
+        {{- end}}
+	}
+	return resp, nil
+}

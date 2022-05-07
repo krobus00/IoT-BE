@@ -1,0 +1,43 @@
+package {{ .PackageName }}
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"net/http"
+
+	"{{ .ModuleName }}/model"
+	db_models "{{ .ModuleName }}/model/database"
+	kro_util "github.com/krobus00/krobot-building-block/util"
+    kro_model "github.com/krobus00/krobot-building-block/model"
+)
+
+func (svc *service) Update{{ .EntityName }}ByID(ctx context.Context, payload *model.Update{{ .EntityName }}Request) error {
+	span := kro_util.StartTracing(ctx, tag, tracingUpdate{{ .EntityName }}ByID)
+	defer span.Finish()
+
+	{{ .SingularName }}, err := svc.Get{{ .EntityName }}ByID(ctx, &model.Show{{ .EntityName }}Request{ID: payload.ID})
+	if err != nil {
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingUpdate{{ .EntityName }}ByID, err))
+		return err
+	}
+
+	if {{ .SingularName }} == nil {
+		return kro_model.NewHttpCustomError(http.StatusNotFound, errors.New("{{ .EntityName }} Not Found"))
+	}
+
+	input := &db_models.{{ .EntityName }}{
+		ID:     payload.ID,
+		{{- range .DatabaseModels}}
+            {{ .FieldName }}: payload.{{ .FieldName }},
+        {{- end}}
+	}
+
+	err = svc.repository.{{ .EntityName }}Repository.Update{{ .EntityName }}ByID(ctx, svc.db, input)
+	if err != nil {
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingUpdate{{ .EntityName }}ByID, err))
+		return err
+	}
+
+	return nil
+}

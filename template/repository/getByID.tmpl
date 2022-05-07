@@ -1,0 +1,38 @@
+package {{ .PackageName }}
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+
+	sq "github.com/Masterminds/squirrel"
+	"github.com/jmoiron/sqlx"
+	db_models "{{ .ModuleName }}/model/database"
+	kro_util "github.com/krobus00/krobot-building-block/util"
+)
+
+func (r *repository) Get{{ .EntityName }}ByID(ctx context.Context, db *sqlx.DB, input *db_models.{{ .EntityName }}) (*db_models.{{ .EntityName }}, error) {
+	span := kro_util.StartTracing(ctx, tag, tracingGet{{ .EntityName }}ByID)
+	defer span.Finish()
+
+	result := new(db_models.{{ .EntityName }})
+	query, args, err := r.buildSelectQuery().Where(sq.Eq{
+		"id": input.ID,
+	}).ToSql()
+
+	if err != nil {
+		r.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGet{{ .EntityName }}ByID, err))
+		return nil, err
+	}
+
+	err = db.GetContext(ctx, result, query, args...)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		r.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGet{{ .EntityName }}ByID, err))
+		return nil, err
+	}
+
+	return result, nil
+}

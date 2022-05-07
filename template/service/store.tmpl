@@ -1,0 +1,29 @@
+package {{ .PackageName }}
+
+import (
+	"context"
+	"fmt"
+
+	"{{ .ModuleName }}/model"
+	db_models "{{ .ModuleName }}/model/database"
+	kro_util "github.com/krobus00/krobot-building-block/util"
+)
+
+func (svc *service) Store{{ .EntityName }}(ctx context.Context, payload *model.Create{{ .EntityName }}Request) error {
+	span := kro_util.StartTracing(ctx, tag, tracingStore{{ .EntityName }})
+	defer span.Finish()
+
+	input := &db_models.{{ .EntityName }}{
+		ID:    kro_util.NewUUID(),
+		{{- range .DatabaseModels}}
+            {{ .FieldName }}: payload.{{ .FieldName }},
+        {{- end}}
+	}
+
+	err := svc.repository.{{ .EntityName }}Repository.Store(ctx, svc.db, input)
+	if err != nil {
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingStore{{ .EntityName }}, err))
+	}
+
+	return nil
+}

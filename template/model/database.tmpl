@@ -1,0 +1,9 @@
+package database
+
+type {{ .EntityName }} struct {
+	ID     string `db:"id"`
+    {{- range .DatabaseModels}}
+        {{.FieldName}} {{.DataType}} `db:"{{.Column}}"`
+    {{- end}}
+	DateColumn
+}

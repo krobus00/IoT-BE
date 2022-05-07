@@ -1,0 +1,30 @@
+package {{ .PackageName }}
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/jmoiron/sqlx"
+	db_models "{{ .ModuleName }}/model/database"
+    kro_util "github.com/krobus00/krobot-building-block/util"
+)
+
+func (r *repository) Store(ctx context.Context, db *sqlx.DB, input *db_models.{{ .EntityName }}) error {
+	span := kro_util.StartTracing(ctx, tag, tracingStore{{ .EntityName }})
+	defer span.Finish()
+
+	query, args, err := r.buildInsertQuery(input).ToSql()
+
+	if err != nil {
+		r.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingStore{{ .EntityName }}, err))
+		return err
+	}
+
+	_, err = db.ExecContext(ctx, query, args...)
+	if err != nil {
+		r.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingStore{{ .EntityName }}, err))
+		return err
+	}
+
+	return nil
+}

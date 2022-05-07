@@ -1,0 +1,7 @@
+e.GET("/{{ .PackageName }}", handler.{{ .EntityName }}Controller.HandleGetAll{{ .EntityName }})
+e.POST("/{{ .PackageName }}", handler.{{ .EntityName }}Controller.HandleCreate{{ .EntityName }})
+e.GET("/{{ .PackageName }}/:id", handler.{{ .EntityName }}Controller.HandleShow{{ .EntityName }})
+e.PATCH("/{{ .PackageName }}/:id", handler.{{ .EntityName }}Controller.HandleUpdate{{ .EntityName }})
+e.DELETE("/{{ .PackageName }}/:id", handler.{{ .EntityName }}Controller.HandleDelete{{ .EntityName }})
+
+// INJECT ROUTE HERE
