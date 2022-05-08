@@ -30,6 +30,11 @@ func (svc *service) GetSensorByID(ctx context.Context, payload *model.ShowSensor
 		Humidity:    sensor.Humidity,
 		Temperature: sensor.Temperature,
 		HeatIndex:   sensor.HeatIndex,
+		DateColumn: model.DateColumn{
+			CreatedAt: sensor.CreatedAt,
+			UpdatedAt: sensor.UpdatedAt,
+			DeletedAt: sensor.DeletedAt,
+		},
 	}
 	return resp, nil
 }

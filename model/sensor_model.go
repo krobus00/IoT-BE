@@ -6,6 +6,7 @@ type SensorResponse struct {
 	Humidity    float64 `json:"humidity"`
 	Temperature float64 `json:"temperature"`
 	HeatIndex   float64 `json:"heatIndex"`
+	DateColumn
 }
 
 type GetAllSensorResponse struct {

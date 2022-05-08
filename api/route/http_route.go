@@ -17,9 +17,9 @@ func NewRoutes(
 
 	internal.POST("/node/register", handler.NodeController.HandleRegister)
 	internal.POST("/node/getToken", handler.NodeController.HandleGetAccessToken)
-	internal.GET("/auth/me", handler.NodeController.HandleGetNode, local_middleware.DecodeJWTTokenMiddleware())
 
 	e.GET("/node", handler.NodeController.HandleGetPagination)
+	e.GET("/node/me", handler.NodeController.HandleGetNode, local_middleware.DecodeJWTTokenMiddleware())
 
 	e.GET("/sensors", handler.SensorController.HandleGetAllSensor)
 	e.POST("/sensors", handler.SensorController.HandleCreateSensor, local_middleware.DecodeJWTTokenMiddleware())

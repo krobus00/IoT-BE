@@ -5,6 +5,7 @@ type NodeResponse struct {
 	City      string  `json:"city"`
 	Longitude float64 `json:"longitude"`
 	Latitude  float64 `json:"latitude"`
+	DateColumn
 }
 
 type RegisterRequest struct {
@@ -19,4 +20,9 @@ type GetAccessTokenRequest struct {
 
 type GetAccessTokenResponse struct {
 	AccessToken string `json:"access_token"`
+}
+
+type GetNodeInfoResponse struct {
+	NodeResponse
+	LastReport *SensorResponse `json:"lastReport"`
 }
