@@ -33,7 +33,7 @@ func (svc *service) GetAllSensor(ctx context.Context, payload *kro_model.Paginat
 			HeatIndex:   sensor.HeatIndex,
 		})
 	}
-	resp.BuildResponse(payload, sensors, count)
+	resp.BuildResponse(payload, items, count)
 
 	return resp, nil
 }

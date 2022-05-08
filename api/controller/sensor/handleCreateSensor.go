@@ -1,6 +1,7 @@
 package sensor
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/krobus00/iot-be/model"
@@ -25,6 +26,7 @@ func (c *Controller) HandleCreateSensor(eCtx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, kro_util.BuildValidationErrors(err, trans))
 	}
 
+	ctx = context.WithValue(ctx, "nodeId", eCtx.Get("nodeId").(string))
 	err := c.SensorService.StoreSensor(ctx, payload)
 	if err != nil {
 		return err
