@@ -15,9 +15,7 @@ func DecodeJWTTokenMiddleware() echo.MiddlewareFunc {
 		return func(eCtx echo.Context) error {
 			token := eCtx.Request().Header.Get("Authorization")
 			token = strings.Replace(token, "Bearer ", "", -1)
-
 			if token == "" {
-
 				return kro_model.NewHttpCustomError(http.StatusUnauthorized, errors.New("Invalid Token"))
 			}
 
