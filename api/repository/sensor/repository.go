@@ -11,11 +11,12 @@ import (
 const (
 	tag = `[SensorRepository]`
 
-	tracingGetAllSensor     = "GetAllSensor"
-	tracingGetSensorByID    = "GetSensorByID"
-	tracingStoreSensor      = "StoreSensor"
-	tracingUpdateSensorByID = "UpdateSensorByID"
-	tracingDeleteSensorByID = "DeleteSensorByID"
+	tracingGetAllSensor          = "GetAllSensor"
+	tracingGetSensorByID         = "GetSensorByID"
+	tracingStoreSensor           = "StoreSensor"
+	tracingUpdateSensorByID      = "UpdateSensorByID"
+	tracingDeleteSensorByID      = "DeleteSensorByID"
+	tracingGetLastReportByNodeID = "GetLastReportByNodeID"
 )
 
 type (
@@ -26,6 +27,7 @@ type (
 		GetSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) (*db_models.Sensor, error)
 		UpdateSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) error
 		DeleteSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) error
+		GetLastReportByNodeID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) (*db_models.Sensor, error)
 	}
 	repository struct {
 		logger infrastructure.Logger

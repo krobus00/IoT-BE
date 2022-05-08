@@ -13,6 +13,7 @@ const (
 	tracingRegister       = "handleRegisterNode"
 	tracingGetAccessToken = "handleGetAccessTokenNode"
 	tracingGetPagination  = "handleGetAccessTokenNode"
+	tracingGetNodeInfo    = "handleGetNodeInfo"
 )
 
 type Controller struct {
