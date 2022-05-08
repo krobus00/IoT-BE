@@ -17,6 +17,11 @@ func (r *repository) GetAllSensor(ctx context.Context, db *sqlx.DB, paginationRe
 	var totalCount int64
 	results := make([]*db_models.Sensor, 0)
 
+	// default order item
+	if paginationRequest.OrderBy == "" {
+		paginationRequest.OrderBy = "createdAt"
+		paginationRequest.OrderByDirection = "desc"
+	}
 	paginationConfig := kro_model.ParamsFromRequest(paginationRequest)
 
 	paginationSearchField := kro_model.SearchFields(searchFields...)
