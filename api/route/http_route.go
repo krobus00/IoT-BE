@@ -13,19 +13,22 @@ func NewRoutes(
 ) {
 	e := router.Echo
 
-	internal := e.Group("/_internal")
+	internal := e.Group("/_internal/iot")
 
 	internal.POST("/node/register", handler.NodeController.HandleRegister)
 	internal.POST("/node/getToken", handler.NodeController.HandleGetAccessToken)
-	internal.GET("/auth/me", handler.NodeController.HandleGetNode, local_middleware.DecodeJWTTokenMiddleware())
 
-	e.GET("/node", handler.NodeController.HandleGetPagination)
+	iot := e.Group("/iot")
 
-	e.GET("/sensors", handler.SensorController.HandleGetAllSensor)
-	e.POST("/sensors", handler.SensorController.HandleCreateSensor, local_middleware.DecodeJWTTokenMiddleware())
-	e.GET("/sensors/:id", handler.SensorController.HandleShowSensor)
-	e.PATCH("/sensors/:id", handler.SensorController.HandleUpdateSensor)
-	e.DELETE("/sensors/:id", handler.SensorController.HandleDeleteSensor)
+	iot.GET("/node", handler.NodeController.HandleGetPagination)
+	iot.GET("/node/me", handler.NodeController.HandleGetNode, local_middleware.DecodeJWTTokenMiddleware())
+
+	iot.GET("/sensors", handler.SensorController.HandleGetAllSensor)
+	iot.POST("/sensors", handler.SensorController.HandleCreateSensor, local_middleware.DecodeJWTTokenMiddleware())
+	iot.POST("/sensors/resampledData/:nodeId", handler.SensorController.HandleGetResampledData)
+	iot.GET("/sensors/:id", handler.SensorController.HandleShowSensor)
+	iot.PATCH("/sensors/:id", handler.SensorController.HandleUpdateSensor)
+	iot.DELETE("/sensors/:id", handler.SensorController.HandleDeleteSensor)
 
 	// INJECT ROUTE HERE
 }

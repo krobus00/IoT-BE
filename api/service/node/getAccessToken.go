@@ -38,9 +38,6 @@ func (svc *service) GetAccessToken(ctx context.Context, payload *model.GetAccess
 		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetAccessToken, err))
 		return nil, err
 	}
-	fmt.Println()
-	fmt.Println(token)
-	fmt.Println()
 
 	resp := &model.GetAccessTokenResponse{
 		AccessToken: token,

@@ -4,13 +4,12 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/krobus00/iot-be/util"
 )
 
 type Env struct {
 	AppName     string
-	WorkerName  string
 	AppPort     string
-	WorkerPort  string
 	Environment string
 
 	DBUsername string
@@ -22,6 +21,10 @@ type Env struct {
 	SentryDSN             string
 	SentryTraceSampleRate string
 	SentrySampleRate      string
+
+	HttpDefaultTimeOut int
+
+	DataServiceHost string
 }
 
 func NewEnv() Env {
@@ -46,4 +49,8 @@ func (env *Env) LoadEnv() {
 	env.SentryDSN = os.Getenv("SENTRY_DSN")
 	env.SentryTraceSampleRate = os.Getenv("SENTRY_TRACE_SAMPLE_RATE")
 	env.SentrySampleRate = os.Getenv("SENTRY_SAMPLE_RATE")
+
+	env.HttpDefaultTimeOut, _ = util.GetenvInt("HTTP_DEFAULT_TIMEOUT_IN_SEC")
+
+	env.DataServiceHost = os.Getenv("DATA_SERVICE_HOST")
 }
