@@ -7,4 +7,4 @@ type GetSampledData struct {
 	CreatedAt   DateTime `json:"createdAt"`
 }
 
-type GetSampledDataResponse []*GetSampledData
+// type GetSampledDataResponse []*GetSampledData

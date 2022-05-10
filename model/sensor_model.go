@@ -41,8 +41,8 @@ type GetProcessedDataRequest struct {
 }
 
 type GetProcessedDataResponse struct {
-	Humidity    []float64  `json:"humidity"`
-	Temperature []float64  `json:"temperature"`
-	HeatIndex   []float64  `json:"heatIndex"`
-	DateTime    []DateTime `json:"dateTime"`
+	Humidity    []*float64  `json:"humidity"`
+	Temperature []*float64  `json:"temperature"`
+	HeatIndex   []*float64  `json:"heatIndex"`
+	DateTime    []*DateTime `json:"dateTime"`
 }
