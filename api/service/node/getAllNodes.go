@@ -30,6 +30,11 @@ func (svc *service) GetAllNodes(ctx context.Context, payload *kro_model.Paginati
 			City:      node.City,
 			Longitude: node.Longitude,
 			Latitude:  node.Latitude,
+			DateColumn: model.DateColumn{
+				CreatedAt: node.CreatedAt,
+				UpdatedAt: node.UpdatedAt,
+				DeletedAt: node.DeletedAt,
+			},
 		})
 	}
 	resp.BuildResponse(payload, nodes, count)

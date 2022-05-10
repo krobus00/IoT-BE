@@ -2,8 +2,10 @@ package sensor
 
 import (
 	"context"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/krobus00/iot-be/infrastructure"
+	"github.com/krobus00/iot-be/model"
 	db_models "github.com/krobus00/iot-be/model/database"
 	kro_model "github.com/krobus00/krobot-building-block/model"
 )
@@ -11,11 +13,13 @@ import (
 const (
 	tag = `[SensorRepository]`
 
-	tracingGetAllSensor     = "GetAllSensor"
-	tracingGetSensorByID    = "GetSensorByID"
-	tracingStoreSensor      = "StoreSensor"
-	tracingUpdateSensorByID = "UpdateSensorByID"
-	tracingDeleteSensorByID = "DeleteSensorByID"
+	tracingGetAllSensor          = "GetAllSensor"
+	tracingGetSensorByID         = "GetSensorByID"
+	tracingStoreSensor           = "StoreSensor"
+	tracingUpdateSensorByID      = "UpdateSensorByID"
+	tracingDeleteSensorByID      = "DeleteSensorByID"
+	tracingGetLastReportByNodeID = "GetLastReportByNodeID"
+	tracingGetSensorByRange      = "GetSensorByRange"
 )
 
 type (
@@ -26,6 +30,8 @@ type (
 		GetSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) (*db_models.Sensor, error)
 		UpdateSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) error
 		DeleteSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) error
+		GetLastReportByNodeID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) (*db_models.Sensor, error)
+		GetSensorByRange(ctx context.Context, db *sqlx.DB, input *model.GetProcessedDataRequest) ([]*db_models.Sensor, error)
 	}
 	repository struct {
 		logger infrastructure.Logger

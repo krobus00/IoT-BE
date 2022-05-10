@@ -1,17 +1,15 @@
 package infrastructure
 
 import (
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/krobus00/iot-be/util"
 )
 
 type Env struct {
 	AppName     string
-	WorkerName  string
 	AppPort     string
-	WorkerPort  string
 	Environment string
 
 	DBUsername string
@@ -24,16 +22,9 @@ type Env struct {
 	SentryTraceSampleRate string
 	SentrySampleRate      string
 
-	RedisHost     string
-	RedisPort     string
-	RedisPassword string
-	RedisDB       string
+	HttpDefaultTimeOut int
 
-	RabbitMQUsername string
-	RabbitMQPassword string
-	RabbitMQHost     string
-	RabbitMQPort     string
-	RabbitMQVHost    string
+	DataServiceHost string
 }
 
 func NewEnv() Env {
@@ -43,10 +34,7 @@ func NewEnv() Env {
 }
 
 func (env *Env) LoadEnv() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	_ = godotenv.Load()
 
 	env.AppName = os.Getenv("APP_NAME")
 	env.AppPort = os.Getenv("APP_PORT")
@@ -61,4 +49,8 @@ func (env *Env) LoadEnv() {
 	env.SentryDSN = os.Getenv("SENTRY_DSN")
 	env.SentryTraceSampleRate = os.Getenv("SENTRY_TRACE_SAMPLE_RATE")
 	env.SentrySampleRate = os.Getenv("SENTRY_SAMPLE_RATE")
+
+	env.HttpDefaultTimeOut, _ = util.GetenvInt("HTTP_DEFAULT_TIMEOUT_IN_SEC")
+
+	env.DataServiceHost = os.Getenv("DATA_SERVICE_HOST")
 }

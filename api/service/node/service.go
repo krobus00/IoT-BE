@@ -13,9 +13,10 @@ import (
 const (
 	tag = `[NodeService]`
 
-	tracingRegister       = "RegisterUser"
+	tracingRegister       = "RegisterNode"
 	tracingGetAccessToken = "GetAccessToken"
 	tracingGetAllNodes    = "GetAllNodes"
+	tracingGetNodeInfo    = "GetNodeInfo"
 )
 
 type (
@@ -23,6 +24,7 @@ type (
 		Register(ctx context.Context, payload *model.RegisterRequest) (*string, error)
 		GetAccessToken(ctx context.Context, payload *model.GetAccessTokenRequest) (*model.GetAccessTokenResponse, error)
 		GetAllNodes(ctx context.Context, payload *kro_model.PaginationRequest) (*kro_model.PaginationResponse, error)
+		GetNodeInfo(ctx context.Context) (*model.GetNodeInfoResponse, error)
 	}
 	service struct {
 		logger     infrastructure.Logger

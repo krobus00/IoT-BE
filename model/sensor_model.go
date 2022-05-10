@@ -6,6 +6,7 @@ type SensorResponse struct {
 	Humidity    float64 `json:"humidity"`
 	Temperature float64 `json:"temperature"`
 	HeatIndex   float64 `json:"heatIndex"`
+	DateColumn
 }
 
 type GetAllSensorResponse struct {
@@ -31,4 +32,17 @@ type UpdateSensorRequest struct {
 
 type DeleteSensorRequest struct {
 	ID string `param:"id" validate:"required" label:"id"`
+}
+
+type GetProcessedDataRequest struct {
+	NodeID    string   `param:"nodeId" validate:"required" label:"nodeId"`
+	StartDate DateTime `json:"startDate"`
+	EndDate   DateTime `json:"endDate"`
+}
+
+type GetProcessedDataResponse struct {
+	Humidity    []float64  `json:"humidity"`
+	Temperature []float64  `json:"temperature"`
+	HeatIndex   []float64  `json:"heatIndex"`
+	DateTime    []DateTime `json:"dateTime"`
 }

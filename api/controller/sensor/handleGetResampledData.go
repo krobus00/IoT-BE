@@ -1,7 +1,6 @@
 package sensor
 
 import (
-	"context"
 	"net/http"
 
 	"github.com/krobus00/iot-be/model"
@@ -10,13 +9,13 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (c *Controller) HandleCreateSensor(eCtx echo.Context) error {
+func (c *Controller) HandleGetResampledData(eCtx echo.Context) error {
 	ctx := eCtx.Request().Context()
 
-	span := kro_util.StartTracing(ctx, tag, tracingStoreSensor)
+	span := kro_util.StartTracing(ctx, tag, tracingGetResampledData)
 	defer span.Finish()
 
-	payload := new(model.CreateSensorRequest)
+	payload := new(model.GetProcessedDataRequest)
 	if err := eCtx.Bind(payload); err != nil {
 		return err
 	}
@@ -26,13 +25,14 @@ func (c *Controller) HandleCreateSensor(eCtx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, kro_util.BuildValidationErrors(err, trans))
 	}
 
-	ctx = context.WithValue(ctx, "nodeId", eCtx.Get("nodeId").(string))
-	err := c.SensorService.StoreSensor(ctx, payload)
+	resp, err := c.SensorService.GetResampledData(ctx, payload)
 	if err != nil {
 		return err
 	}
+	response := &kro_model.Response{
+		Message: "Success",
+		Data:    resp,
+	}
 
-	resp := kro_model.NewBasicResponse()
-
-	return eCtx.JSON(http.StatusOK, resp)
+	return eCtx.JSON(http.StatusOK, response)
 }

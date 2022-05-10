@@ -23,6 +23,7 @@ require (
 
 require (
 	github.com/BenJetson/humantime v0.0.0-20200514023344-f59ec2835a87 // indirect
+	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect

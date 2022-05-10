@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	searchFields = []string{"id"}
+	searchFields = []string{"id", "node_id"}
 	whiteList    = kro_model.ColumnWhiteList{
 		"id":          true,
 		"node_id":     true,
@@ -20,10 +20,10 @@ var (
 	}
 	columnMapping = kro_model.ColumnMapping{
 		"id":          "id",
-		"node_id":     "node_id",
+		"nodeId":      "node_id",
 		"humidity":    "humidity",
 		"temperature": "temperature",
-		"heat_index":  "heat_index",
+		"heatIndex":   "heat_index",
 		"createdAt":   "created_at",
 		"updatedAt":   "updated_at",
 		"deletedAt":   "deleted_at",

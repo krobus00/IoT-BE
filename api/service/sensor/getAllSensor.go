@@ -31,9 +31,14 @@ func (svc *service) GetAllSensor(ctx context.Context, payload *kro_model.Paginat
 			Humidity:    sensor.Humidity,
 			Temperature: sensor.Temperature,
 			HeatIndex:   sensor.HeatIndex,
+			DateColumn: model.DateColumn{
+				CreatedAt: sensor.CreatedAt,
+				UpdatedAt: sensor.UpdatedAt,
+				DeletedAt: sensor.DeletedAt,
+			},
 		})
 	}
-	resp.BuildResponse(payload, sensors, count)
+	resp.BuildResponse(payload, items, count)
 
 	return resp, nil
 }
