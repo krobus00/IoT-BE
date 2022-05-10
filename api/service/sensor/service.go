@@ -7,6 +7,7 @@ import (
 	"github.com/krobus00/iot-be/api/repository"
 	"github.com/krobus00/iot-be/infrastructure"
 	"github.com/krobus00/iot-be/model"
+	"github.com/krobus00/iot-be/requester"
 	kro_model "github.com/krobus00/krobot-building-block/model"
 )
 
@@ -18,6 +19,7 @@ const (
 	tracingStoreSensor      = "StoreSensor"
 	tracingUpdateSensorByID = "UpdateSensorByID"
 	tracingDeleteSensorByID = "DeleteSensorByID"
+	tracingGetResampledData = "GetResampledData"
 )
 
 type (
@@ -27,21 +29,25 @@ type (
 		GetSensorByID(ctx context.Context, payload *model.ShowSensorRequest) (*model.SensorResponse, error)
 		UpdateSensorByID(ctx context.Context, payload *model.UpdateSensorRequest) error
 		DeleteSensorByID(ctx context.Context, payload *model.DeleteSensorRequest) error
+		GetResampledData(ctx context.Context, payload *model.GetProcessedDataRequest) (*model.GetProcessedDataResponse, error)
 	}
 	service struct {
 		logger     infrastructure.Logger
 		db         *sqlx.DB
 		repository repository.Repository
+		requester  requester.Requester
 	}
 )
 
 func New(
 	infrastructure infrastructure.Infrastructure,
 	repository repository.Repository,
+	requester requester.Requester,
 ) Service {
 	return &service{
 		logger:     infrastructure.Logger,
 		db:         infrastructure.Database.SqlxDB,
 		repository: repository,
+		requester:  requester,
 	}
 }

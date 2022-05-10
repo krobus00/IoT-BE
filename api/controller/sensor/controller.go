@@ -10,11 +10,12 @@ import (
 const (
 	tag = "[SensorController]"
 
-	tracingGetAllSensor = "handleGetAllSensor"
-	tracingShowSensor   = "handleShowSensor"
-	tracingStoreSensor  = "handleCreateSensor"
-	tracingUpdateSensor = "handleUpdateSensor"
-	tracingDeleteSensor = "handleDeleteSensor"
+	tracingGetAllSensor     = "handleGetAllSensor"
+	tracingShowSensor       = "handleShowSensor"
+	tracingStoreSensor      = "handleCreateSensor"
+	tracingUpdateSensor     = "handleUpdateSensor"
+	tracingDeleteSensor     = "handleDeleteSensor"
+	tracingGetResampledData = "handleGetResampledData"
 )
 
 type Controller struct {
