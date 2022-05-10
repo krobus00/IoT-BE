@@ -47,10 +47,10 @@ func (svc *service) GetResampledData(ctx context.Context, payload *model.GetProc
 
 	resp := new(model.GetProcessedDataResponse)
 	for _, v := range data {
-		resp.DateTime = append(resp.DateTime, v.CreatedAt)
-		resp.Humidity = append(resp.Humidity, v.Humidity)
-		resp.Temperature = append(resp.Temperature, v.Temperature)
-		resp.HeatIndex = append(resp.HeatIndex, v.HeatIndex)
+		resp.DateTime = append(resp.DateTime, &v.CreatedAt)
+		resp.Humidity = append(resp.Humidity, &v.Humidity)
+		resp.Temperature = append(resp.Temperature, &v.Temperature)
+		resp.HeatIndex = append(resp.HeatIndex, &v.HeatIndex)
 	}
 	return resp, nil
 }

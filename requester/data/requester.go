@@ -20,7 +20,7 @@ const (
 
 type (
 	Requester interface {
-		CallResamplingData(context context.Context, payload *model.GetAllSensorResponse) (model.GetSampledDataResponse, error)
+		CallResamplingData(context context.Context, payload *model.GetAllSensorResponse) ([]*model.GetSampledData, error)
 	}
 	requester struct {
 		logger     infrastructure.Logger

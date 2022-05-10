@@ -11,7 +11,7 @@ import (
 	"github.com/krobus00/iot-be/model"
 )
 
-func (r *requester) CallResamplingData(context context.Context, payload *model.GetAllSensorResponse) (model.GetSampledDataResponse, error) {
+func (r *requester) CallResamplingData(context context.Context, payload *model.GetAllSensorResponse) ([]*model.GetSampledData, error) {
 	jsonData, err := json.Marshal(payload)
 
 	req, err := http.NewRequest(
@@ -38,7 +38,7 @@ func (r *requester) CallResamplingData(context context.Context, payload *model.G
 		r.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingResamplingData, err))
 		return nil, err
 	}
-	res := model.GetSampledDataResponse{}
+	res := make([]*model.GetSampledData, 0)
 	if err := json.Unmarshal(responseBody, &res); err != nil {
 		r.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingResamplingData, err))
 		return nil, err
