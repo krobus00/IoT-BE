@@ -11,11 +11,13 @@ import (
 	"github.com/krobus00/iot-be/api/route"
 	"github.com/krobus00/iot-be/api/service"
 	"github.com/krobus00/iot-be/infrastructure"
+	"github.com/krobus00/iot-be/requester"
 	"go.uber.org/fx"
 )
 
 var AppModule = fx.Options(
 	infrastructure.Module,
+	requester.Module,
 	repository.Module,
 	service.Module,
 	controller.Module,
