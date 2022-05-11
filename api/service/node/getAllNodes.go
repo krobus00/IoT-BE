@@ -37,7 +37,7 @@ func (svc *service) GetAllNodes(ctx context.Context, payload *kro_model.Paginati
 			},
 		})
 	}
-	resp.BuildResponse(payload, nodes, count)
+	resp.BuildResponse(payload, items, count)
 
 	return resp, nil
 }
