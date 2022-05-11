@@ -15,13 +15,13 @@ func NewRoutes(
 
 	internal := e.Group("/_internal/iot")
 
-	internal.POST("/node/register", handler.NodeController.HandleRegister)
-	internal.POST("/node/getToken", handler.NodeController.HandleGetAccessToken)
+	internal.POST("/nodes/register", handler.NodeController.HandleRegister)
+	internal.POST("/nodes/getToken", handler.NodeController.HandleGetAccessToken)
 
 	iot := e.Group("/iot")
 
-	iot.GET("/node", handler.NodeController.HandleGetPagination)
-	iot.GET("/node/me", handler.NodeController.HandleGetNode, local_middleware.DecodeJWTTokenMiddleware())
+	iot.GET("/nodes", handler.NodeController.HandleGetPagination)
+	iot.GET("/nodes/me", handler.NodeController.HandleGetNode, local_middleware.DecodeJWTTokenMiddleware())
 
 	iot.GET("/sensors", handler.SensorController.HandleGetAllSensor)
 	iot.POST("/sensors", handler.SensorController.HandleCreateSensor, local_middleware.DecodeJWTTokenMiddleware())
