@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	kro_model "github.com/krobus00/krobot-building-block/model"
 	kro_util "github.com/krobus00/krobot-building-block/util"
 	"github.com/labstack/echo/v4"
 )
@@ -20,6 +21,10 @@ func (c *Controller) HandleGetNode(eCtx echo.Context) error {
 	if err != nil {
 		return err
 	}
+	response := &kro_model.Response{
+		Message: "Success",
+		Data:    resp,
+	}
 
-	return eCtx.JSON(http.StatusOK, resp)
+	return eCtx.JSON(http.StatusOK, response)
 }
