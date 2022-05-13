@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/krobus00/iot-be/model"
+	kro_model "github.com/krobus00/krobot-building-block/model"
 	kro_util "github.com/krobus00/krobot-building-block/util"
 	"github.com/labstack/echo/v4"
 )
@@ -28,5 +29,10 @@ func (c *Controller) HandleShowSensor(eCtx echo.Context) error {
 		return err
 	}
 
-	return eCtx.JSON(http.StatusOK, resp)
+	response := &kro_model.Response{
+		Message: "Success",
+		Data:    resp,
+	}
+
+	return eCtx.JSON(http.StatusOK, response)
 }
