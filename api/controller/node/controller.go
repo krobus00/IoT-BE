@@ -10,10 +10,11 @@ import (
 const (
 	tag = "[NodeController]"
 
-	tracingRegister       = "handleRegisterNode"
-	tracingGetAccessToken = "handleGetAccessTokenNode"
-	tracingGetPagination  = "handleGetAccessTokenNode"
-	tracingGetNodeInfo    = "handleGetNodeInfo"
+	tracingRegister        = "handleRegisterNode"
+	tracingGetAccessToken  = "handleGetAccessTokenNode"
+	tracingGetPagination   = "handleGetAccessTokenNode"
+	tracingGetNodeInfo     = "handleGetNodeInfo"
+	tracingGetNodeInfoByID = "handleGetNodeInfoByID"
 )
 
 type Controller struct {

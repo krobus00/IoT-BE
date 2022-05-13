@@ -17,6 +17,7 @@ const (
 	tracingGetAccessToken = "GetAccessToken"
 	tracingGetAllNodes    = "GetAllNodes"
 	tracingGetNodeInfo    = "GetNodeInfo"
+	tracingGetNodeByID    = "GetNodeByID"
 )
 
 type (
@@ -25,6 +26,7 @@ type (
 		GetAccessToken(ctx context.Context, payload *model.GetAccessTokenRequest) (*model.GetAccessTokenResponse, error)
 		GetAllNodes(ctx context.Context, payload *kro_model.PaginationRequest) (*kro_model.PaginationResponse, error)
 		GetNodeInfo(ctx context.Context) (*model.GetNodeInfoResponse, error)
+		GetNodeInfoByID(ctx context.Context, payload *model.GetNodeInfoPayload) (*model.GetNodeInfoResponse, error)
 	}
 	service struct {
 		logger     infrastructure.Logger

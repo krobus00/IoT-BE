@@ -6,5 +6,3 @@ type GetSampledData struct {
 	HeatIndex   float64  `json:"heatIndex"`
 	CreatedAt   DateTime `json:"createdAt"`
 }
-
-// type GetSampledDataResponse []*GetSampledData
