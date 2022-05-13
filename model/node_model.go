@@ -22,6 +22,10 @@ type GetAccessTokenResponse struct {
 	AccessToken string `json:"access_token"`
 }
 
+type GetNodeInfoPayload struct {
+	ID string `param:"id" validate:"required" label:"id"`
+}
+
 type GetNodeInfoResponse struct {
 	NodeResponse
 	LastReport *SensorResponse `json:"lastReport"`

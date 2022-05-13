@@ -22,6 +22,7 @@ func NewRoutes(
 
 	iot.GET("/nodes", handler.NodeController.HandleGetPagination)
 	iot.GET("/nodes/me", handler.NodeController.HandleGetNode, local_middleware.DecodeJWTTokenMiddleware())
+	iot.GET("/nodes/:id", handler.NodeController.HandleGetNodeInfoByID)
 
 	iot.GET("/sensors", handler.SensorController.HandleGetAllSensor)
 	iot.POST("/sensors", handler.SensorController.HandleCreateSensor, local_middleware.DecodeJWTTokenMiddleware())
