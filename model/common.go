@@ -2,9 +2,10 @@ package model
 
 // TODO: MOVE TO BUILDING BLOCK
 import (
-	"github.com/araddon/dateparse"
 	"strings"
 	"time"
+
+	"github.com/araddon/dateparse"
 )
 
 type DateColumn struct {
@@ -32,4 +33,8 @@ func (dt *DateTime) UnmarshalJSON(b []byte) error {
 
 func (dt DateTime) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + time.Time(dt).Format("2006-01-02 15:04:05") + `"`), nil
+}
+
+func (dt DateTime) ToString() string {
+	return time.Time(dt).Format("2006-01-02 15:04:05")
 }
