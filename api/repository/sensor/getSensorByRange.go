@@ -17,17 +17,21 @@ func (r *repository) GetSensorByRange(ctx context.Context, db *sqlx.DB, input *m
 	defer span.Finish()
 
 	results := make([]*db_models.Sensor, 0)
+
 	query, args, err := r.buildSelectQuery().
 		Where(
-			sq.Eq{
-				"node_id": input.NodeID,
+			sq.And{
+				sq.Eq{
+					"node_id": input.NodeID,
+				},
+				sq.GtOrEq{
+					"created_at": input.StartDate.ToString(),
+				},
+				sq.LtOrEq{
+					"created_at": input.EndDate.ToString(),
+				},
 			},
-			sq.GtOrEq{
-				"created_at": input.StartDate,
-			},
-			sq.LtOrEq{
-				"created_at": input.EndDate,
-			}).
+		).
 		OrderBy("created_at ASC").
 		ToSql()
 
