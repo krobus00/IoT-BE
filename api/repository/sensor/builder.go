@@ -1,6 +1,8 @@
 package sensor
 
 import (
+	"time"
+
 	sq "github.com/Masterminds/squirrel"
 	db_models "github.com/krobus00/iot-be/model/database"
 	kro_model "github.com/krobus00/krobot-building-block/model"
@@ -63,6 +65,8 @@ func (r *repository) buildUpdateQuery(input *db_models.Sensor) sq.UpdateBuilder 
 		"humidity":    input.Humidity,
 		"temperature": input.Temperature,
 		"heat_index":  input.HeatIndex,
+		"created_at":  time.Now().Unix(),
+		"updated_at":  time.Now().Unix(),
 	}
 	updateBuilder := sq.Update(r.GetTableName()).SetMap(vals)
 	return updateBuilder
@@ -70,7 +74,7 @@ func (r *repository) buildUpdateQuery(input *db_models.Sensor) sq.UpdateBuilder 
 
 func (r *repository) buildDeleteQuery() sq.UpdateBuilder {
 	vals := sq.Eq{
-		"deleted_at": sq.Expr("NOW()"),
+		"deleted_at": time.Now().Unix(),
 	}
 	updateBuilder := sq.Update(r.GetTableName()).SetMap(vals)
 	return updateBuilder

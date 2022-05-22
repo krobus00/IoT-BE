@@ -8,10 +8,10 @@ import (
 	"github.com/common-nighthawk/go-figure"
 	"github.com/krobus00/iot-be/api/controller"
 	"github.com/krobus00/iot-be/api/repository"
+	"github.com/krobus00/iot-be/api/requester"
 	"github.com/krobus00/iot-be/api/route"
 	"github.com/krobus00/iot-be/api/service"
 	"github.com/krobus00/iot-be/infrastructure"
-	"github.com/krobus00/iot-be/requester"
 	"go.uber.org/fx"
 )
 

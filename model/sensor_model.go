@@ -35,16 +35,16 @@ type DeleteSensorRequest struct {
 }
 
 type GetProcessedDataRequest struct {
-	NodeID    string   `param:"nodeId" validate:"required" label:"nodeId"`
-	StartDate DateTime `json:"startDate"`
-	EndDate   DateTime `json:"endDate"`
+	NodeID    string `param:"nodeId" validate:"required" label:"nodeId"`
+	StartDate int64  `json:"startDate"`
+	EndDate   int64  `json:"endDate"`
 }
 
 type GetProcessedDataResponse struct {
-	Humidity    []*float64  `json:"humidity"`
-	Temperature []*float64  `json:"temperature"`
-	HeatIndex   []*float64  `json:"heatIndex"`
-	DateTime    []*DateTime `json:"dateTime"`
+	Humidity    []*float64 `json:"humidity"`
+	Temperature []*float64 `json:"temperature"`
+	HeatIndex   []*float64 `json:"heatIndex"`
+	DateTime    []*int64   `json:"dateTime"`
 }
 
 type GetForecastDataRequest struct {
@@ -52,6 +52,6 @@ type GetForecastDataRequest struct {
 }
 
 type GetForecastDataResponse struct {
-	Temperature []*float64  `json:"temperature"`
-	DateTime    []*DateTime `json:"dateTime"`
+	Temperature []*float64 `json:"temperature"`
+	DateTime    []*int64   `json:"dateTime"`
 }

@@ -1,6 +1,8 @@
 package node
 
 import (
+	"time"
+
 	sq "github.com/Masterminds/squirrel"
 	db_models "github.com/krobus00/iot-be/model/database"
 	kro_model "github.com/krobus00/krobot-building-block/model"
@@ -30,10 +32,12 @@ var (
 
 func (r *repository) buildInsertQuery(input *db_models.Node) sq.InsertBuilder {
 	vals := sq.Eq{
-		"id":        input.ID,
-		"city":      input.City,
-		"longitude": input.Longitude,
-		"latitude":  input.Latitude,
+		"id":         input.ID,
+		"city":       input.City,
+		"longitude":  input.Longitude,
+		"latitude":   input.Latitude,
+		"created_at": time.Now().Unix(),
+		"updated_at": time.Now().Unix(),
 	}
 	insertBuilder := sq.Insert(r.GetTableName()).SetMap(vals)
 	return insertBuilder

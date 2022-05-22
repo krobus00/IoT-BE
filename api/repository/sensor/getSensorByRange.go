@@ -25,10 +25,10 @@ func (r *repository) GetSensorByRange(ctx context.Context, db *sqlx.DB, input *m
 					"node_id": input.NodeID,
 				},
 				sq.GtOrEq{
-					"created_at": input.StartDate.ToString(),
+					"created_at": input.StartDate,
 				},
 				sq.LtOrEq{
-					"created_at": input.EndDate.ToString(),
+					"created_at": input.EndDate,
 				},
 			},
 		).

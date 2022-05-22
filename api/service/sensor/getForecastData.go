@@ -19,8 +19,8 @@ func (svc *service) GetForecastData(ctx context.Context, payload *model.GetForec
 
 	payloadData := &model.GetProcessedDataRequest{
 		NodeID:    payload.NodeID,
-		StartDate: model.DateTime(time.Now().Add(-time.Hour * 24)),
-		EndDate:   model.DateTime(time.Now()),
+		StartDate: time.Now().Add(-time.Hour * 24).Unix(),
+		EndDate:   time.Now().Unix(),
 	}
 
 	sensors, err := svc.repository.SensorRepository.GetSensorByRange(ctx, svc.db, payloadData)
