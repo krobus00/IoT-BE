@@ -6,3 +6,8 @@ type GetSampledData struct {
 	HeatIndex   float64  `json:"heatIndex"`
 	CreatedAt   DateTime `json:"createdAt"`
 }
+
+type GetForecastData struct {
+	Temperature float64  `json:"yhat1"`
+	CreatedAt   DateTime `json:"ds"`
+}

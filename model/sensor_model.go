@@ -46,3 +46,12 @@ type GetProcessedDataResponse struct {
 	HeatIndex   []*float64  `json:"heatIndex"`
 	DateTime    []*DateTime `json:"dateTime"`
 }
+
+type GetForecastDataRequest struct {
+	NodeID string `param:"nodeId" validate:"required" label:"nodeId"`
+}
+
+type GetForecastDataResponse struct {
+	Temperature []*float64  `json:"temperature"`
+	DateTime    []*DateTime `json:"dateTime"`
+}

@@ -34,7 +34,6 @@ func (r *repository) GetSensorByRange(ctx context.Context, db *sqlx.DB, input *m
 		).
 		OrderBy("created_at ASC").
 		ToSql()
-
 	if err != nil {
 		r.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetSensorByRange, err))
 		return nil, err
