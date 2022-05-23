@@ -22,5 +22,5 @@ type Controller struct {
 
 	Logger      infrastructure.Logger
 	Translator  *ut.UniversalTranslator
-	NodeService node.Service
+	NodeService node.NodeService
 }

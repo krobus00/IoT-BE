@@ -18,7 +18,7 @@ const (
 )
 
 type (
-	Repository interface {
+	NodeRepository interface {
 		GetTableName() string
 		Store(ctx context.Context, db *sqlx.DB, input *db_models.Node) error
 		FindNodeByID(ctx context.Context, db *sqlx.DB, input *db_models.Node) (*db_models.Node, error)
@@ -29,7 +29,7 @@ type (
 	}
 )
 
-func New(infrastructure infrastructure.Infrastructure) Repository {
+func New(infrastructure infrastructure.Infrastructure) NodeRepository {
 	return &repository{
 		logger: infrastructure.Logger,
 	}

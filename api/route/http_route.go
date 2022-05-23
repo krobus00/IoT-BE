@@ -26,10 +26,12 @@ func NewRoutes(
 
 	iot.GET("/sensors", handler.SensorController.HandleGetAllSensor)
 	iot.POST("/sensors", handler.SensorController.HandleCreateSensor, local_middleware.DecodeJWTTokenMiddleware())
-	iot.POST("/sensors/resampledData/:nodeId", handler.SensorController.HandleGetResampledData)
 	iot.GET("/sensors/:id", handler.SensorController.HandleShowSensor)
 	iot.PATCH("/sensors/:id", handler.SensorController.HandleUpdateSensor)
 	iot.DELETE("/sensors/:id", handler.SensorController.HandleDeleteSensor)
+
+	iot.POST("/sensors/resampledData/:nodeId", handler.SensorController.HandleGetResampledData)
+	iot.GET("/sensors/forecast/:nodeId", handler.SensorController.HandleGetForecastData)
 
 	// INJECT ROUTE HERE
 }

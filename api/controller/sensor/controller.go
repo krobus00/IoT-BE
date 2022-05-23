@@ -23,5 +23,5 @@ type Controller struct {
 
 	Logger        infrastructure.Logger
 	Translator    *ut.UniversalTranslator
-	SensorService sensor.Service
+	SensorService sensor.SensorService
 }

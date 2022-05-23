@@ -1,7 +1,7 @@
 package requester
 
 import (
-	"github.com/krobus00/iot-be/requester/data"
+	"github.com/krobus00/iot-be/api/requester/data"
 	// IMPORT REQUESTER PACKAGE HERE
 	"go.uber.org/fx"
 )
