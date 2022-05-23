@@ -23,7 +23,7 @@ const (
 )
 
 type (
-	Repository interface {
+	SensorRepository interface {
 		GetTableName() string
 		GetAllSensor(ctx context.Context, db *sqlx.DB, paginationRequest *kro_model.PaginationRequest, config ...kro_model.Config) ([]*db_models.Sensor, int64, error)
 		Store(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) error
@@ -38,7 +38,7 @@ type (
 	}
 )
 
-func New(infrastructure infrastructure.Infrastructure) Repository {
+func New(infrastructure infrastructure.Infrastructure) SensorRepository {
 	return &repository{
 		logger: infrastructure.Logger,
 	}

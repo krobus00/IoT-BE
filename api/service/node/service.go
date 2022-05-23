@@ -21,7 +21,7 @@ const (
 )
 
 type (
-	Service interface {
+	NodeService interface {
 		Register(ctx context.Context, payload *model.RegisterRequest) (*string, error)
 		GetAccessToken(ctx context.Context, payload *model.GetAccessTokenRequest) (*model.GetAccessTokenResponse, error)
 		GetAllNodes(ctx context.Context, payload *kro_model.PaginationRequest) (*kro_model.PaginationResponse, error)
@@ -38,7 +38,7 @@ type (
 func New(
 	infrastructure infrastructure.Infrastructure,
 	repository repository.Repository,
-) Service {
+) NodeService {
 	return &service{
 		logger:     infrastructure.Logger,
 		db:         infrastructure.Database.SqlxDB,

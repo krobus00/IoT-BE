@@ -10,8 +10,8 @@ import (
 type Service struct {
 	fx.In
 
-	NodeService   node.Service
-	SensorService sensor.Service
+	NodeService   node.NodeService
+	SensorService sensor.SensorService
 	// INJECT SERVICE HERE
 }
 

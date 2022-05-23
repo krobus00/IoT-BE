@@ -10,8 +10,8 @@ import (
 type Repository struct {
 	fx.In
 
-	NodeRepository   node.Repository
-	SensorRepository sensor.Repository
+	NodeRepository   node.NodeRepository
+	SensorRepository sensor.SensorRepository
 	// INJECT REPOSITORY HERE
 }
 

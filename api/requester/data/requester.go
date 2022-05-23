@@ -12,15 +12,18 @@ const (
 	tag = `[DataRequester]`
 
 	tracingResamplingData = "CallResamplingData"
+	tracingForecastData   = "CallForecastData"
 )
 
 const (
-	PROCESSING_DATA_ENDPOINT = "/_internal/data/iot"
+	PROCESSING_DATA_ENDPOINT = "/_internal/data/preprocessing"
+	FORECAST_DATA_ENDPOINT   = "/_internal/data/forecast"
 )
 
 type (
 	Requester interface {
 		CallResamplingData(context context.Context, payload *model.GetAllSensorResponse) ([]*model.GetSampledData, error)
+		CallForecastData(context context.Context, payload *model.GetAllSensorResponse) ([]*model.GetForecastData, error)
 	}
 	requester struct {
 		logger     infrastructure.Logger
