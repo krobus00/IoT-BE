@@ -6,14 +6,15 @@ import (
 	"time"
 
 	"github.com/krobus00/iot-be/model"
+	"github.com/krobus00/iot-be/model/database"
 	kro_util "github.com/krobus00/krobot-building-block/util"
 )
 
 func (svc *service) GetForecastData(ctx context.Context, payload *model.GetForecastDataRequest) (*model.GetForecastDataResponse, error) {
-	span := kro_util.StartTracing(ctx, tag, tracingGetResampledData)
+	span := kro_util.StartTracing(ctx, tag, tracingGetForecastData)
 	defer span.Finish()
 
-	items := new(model.GetAllSensorResponse)
+	sensorData := new(model.GetAllSensorResponse)
 
 	// redisKey := fmt.Sprintf("FORECAST-%s-%s", payload.NodeID, time.Now().Format("2006-01-02"))
 
@@ -26,7 +27,7 @@ func (svc *service) GetForecastData(ctx context.Context, payload *model.GetForec
 	sensors, err := svc.repository.SensorRepository.GetSensorByRange(ctx, svc.db, payloadData)
 
 	if err != nil {
-		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetResampledData, err))
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetForecastData, err))
 		return nil, err
 	}
 	if sensors == nil {
@@ -34,7 +35,7 @@ func (svc *service) GetForecastData(ctx context.Context, payload *model.GetForec
 	}
 
 	for _, sensor := range sensors {
-		items.Items = append(items.Items, &model.SensorResponse{
+		sensorData.Items = append(sensorData.Items, &model.SensorResponse{
 			ID:          sensor.ID,
 			NodeID:      sensor.NodeID,
 			Humidity:    sensor.Humidity,
@@ -48,9 +49,21 @@ func (svc *service) GetForecastData(ctx context.Context, payload *model.GetForec
 		})
 	}
 
-	data, err := svc.requester.DataRequester.CallForecastData(ctx, items)
+	node, err := svc.repository.NodeRepository.FindNodeByID(ctx, svc.db, &database.Node{ID: payload.NodeID})
+
 	if err != nil {
-		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetResampledData, err))
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetForecastData, err))
+		return nil, err
+	}
+
+	forecastPayload := &model.GetForecastRequest{
+		Model: node.ModelURL,
+		Items: sensorData.Items,
+	}
+
+	data, err := svc.requester.DataRequester.CallForecastData(ctx, forecastPayload)
+	if err != nil {
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetForecastData, err))
 		return nil, err
 	}
 
