@@ -5,5 +5,6 @@ type Node struct {
 	City      string  `db:"city"`
 	Longitude float64 `db:"longitude"`
 	Latitude  float64 `db:"latitude"`
+	ModelURL  string  `db:"model_url"`
 	DateColumn
 }

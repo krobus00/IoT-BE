@@ -8,7 +8,7 @@ ADD unix_deleted_at BIGINT;
 
 -- +goose Down
 -- +goose StatementBegin
-ALTER TABLE sensors 
+ALTER TABLE nodes 
 DROP COLUMN unix_created_at,
 DROP COLUMN unix_updated_at,
 DROP COLUMN unix_deleted_at;

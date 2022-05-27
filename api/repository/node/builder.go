@@ -52,6 +52,7 @@ func (r *repository) buildSelectQuery() sq.SelectBuilder {
 		"created_at",
 		"updated_at",
 		"deleted_at",
+		"COALESCE(nodes.model_url,nodes.fallback_model_url) AS model_url",
 	}
 	selectBuilder := sq.Select(selection...).Where(sq.Eq{"deleted_at": nil}).From(r.GetTableName())
 	return selectBuilder
