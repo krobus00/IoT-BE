@@ -23,7 +23,7 @@ const (
 type (
 	Requester interface {
 		CallResamplingData(context context.Context, payload *model.GetAllSensorResponse) ([]*model.GetSampledData, error)
-		CallForecastData(context context.Context, payload *model.GetAllSensorResponse) ([]*model.GetForecastData, error)
+		CallForecastData(context context.Context, payload *model.GetForecastRequest) ([]*model.GetForecastData, error)
 	}
 	requester struct {
 		logger     infrastructure.Logger

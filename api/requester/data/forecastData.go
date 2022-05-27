@@ -11,7 +11,7 @@ import (
 	"github.com/krobus00/iot-be/model"
 )
 
-func (r *requester) CallForecastData(context context.Context, payload *model.GetAllSensorResponse) ([]*model.GetForecastData, error) {
+func (r *requester) CallForecastData(context context.Context, payload *model.GetForecastRequest) ([]*model.GetForecastData, error) {
 	jsonData, err := json.Marshal(payload)
 
 	req, err := http.NewRequest(
