@@ -30,8 +30,7 @@ func (c *Controller) HandleGetResampledData(eCtx echo.Context) error {
 		return err
 	}
 	response := &kro_model.Response{
-		Message: "Success",
-		Data:    resp,
+		Data: resp,
 	}
 
 	return eCtx.JSON(http.StatusOK, response)

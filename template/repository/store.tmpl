@@ -9,7 +9,7 @@ import (
     kro_util "github.com/krobus00/krobot-building-block/util"
 )
 
-func (r *repository) Store(ctx context.Context, db *sqlx.DB, input *db_models.{{ .EntityName }}) error {
+func (r *repository) Store(ctx context.Context, db kro_pkg.Querier, input *db_models.{{ .EntityName }}) error {
 	span := kro_util.StartTracing(ctx, tag, tracingStore{{ .EntityName }})
 	defer span.Finish()
 

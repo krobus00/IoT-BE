@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/jmoiron/sqlx"
 	db_models "github.com/krobus00/iot-be/model/database"
+	kro_pkg "github.com/krobus00/krobot-building-block/pkg"
 	kro_util "github.com/krobus00/krobot-building-block/util"
 )
 
-func (r *repository) Store(ctx context.Context, db *sqlx.DB, input *db_models.Node) error {
+func (r *repository) Store(ctx context.Context, db kro_pkg.Querier, input *db_models.Node) error {
 	span := kro_util.StartTracing(ctx, tag, tracingStore)
 	defer span.Finish()
 

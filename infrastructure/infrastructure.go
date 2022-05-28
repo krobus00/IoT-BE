@@ -5,6 +5,7 @@ import (
 
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-redis/redis/v8"
+	kro_pkg "github.com/krobus00/krobot-building-block/pkg"
 	"go.uber.org/fx"
 )
 
@@ -15,7 +16,7 @@ type Infrastructure struct {
 	Translator *ut.UniversalTranslator
 	Router     Router
 	Env        Env
-	Database   Database
+	Database   kro_pkg.Database
 	HttpClient *http.Client
 	Redis      *redis.Client
 }

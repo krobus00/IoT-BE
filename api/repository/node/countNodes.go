@@ -5,11 +5,11 @@ import (
 	"fmt"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/jmoiron/sqlx"
+	kro_pkg "github.com/krobus00/krobot-building-block/pkg"
 	kro_util "github.com/krobus00/krobot-building-block/util"
 )
 
-func (r *repository) CountNodes(ctx context.Context, db *sqlx.DB) (int64, error) {
+func (r *repository) CountNodes(ctx context.Context, db kro_pkg.Querier) (int64, error) {
 	// TODO: MOVE TO BUILDING BLOCK
 	span := kro_util.StartTracing(ctx, tag, tracingCountNodes)
 	defer span.Finish()

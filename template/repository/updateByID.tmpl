@@ -10,7 +10,7 @@ import (
 	kro_util "github.com/krobus00/krobot-building-block/util"
 )
 
-func (r *repository) Update{{ .EntityName }}ByID(ctx context.Context, db *sqlx.DB, input *db_models.{{ .EntityName }}) error {
+func (r *repository) Update{{ .EntityName }}ByID(ctx context.Context, db kro_pkg.Querier, input *db_models.{{ .EntityName }}) error {
 	span := kro_util.StartTracing(ctx, tag, tracingUpdate{{ .EntityName }}ByID)
 	defer span.Finish()
 

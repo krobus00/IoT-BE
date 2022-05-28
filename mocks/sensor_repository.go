@@ -12,6 +12,8 @@ import (
 
 	model "github.com/krobus00/krobot-building-block/model"
 
+	pkg "github.com/krobus00/krobot-building-block/pkg"
+
 	sqlx "github.com/jmoiron/sqlx"
 
 	testing "testing"
@@ -23,18 +25,18 @@ type SensorRepository struct {
 }
 
 // CountSensors provides a mock function with given fields: ctx, db
-func (_m *SensorRepository) CountSensors(ctx context.Context, db *sqlx.DB) (int64, error) {
+func (_m *SensorRepository) CountSensors(ctx context.Context, db pkg.Querier) (int64, error) {
 	ret := _m.Called(ctx, db)
 
 	var r0 int64
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB) int64); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier) int64); ok {
 		r0 = rf(ctx, db)
 	} else {
 		r0 = ret.Get(0).(int64)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, pkg.Querier) error); ok {
 		r1 = rf(ctx, db)
 	} else {
 		r1 = ret.Error(1)
@@ -44,11 +46,11 @@ func (_m *SensorRepository) CountSensors(ctx context.Context, db *sqlx.DB) (int6
 }
 
 // DeleteSensorByID provides a mock function with given fields: ctx, db, input
-func (_m *SensorRepository) DeleteSensorByID(ctx context.Context, db *sqlx.DB, input *database.Sensor) error {
+func (_m *SensorRepository) DeleteSensorByID(ctx context.Context, db pkg.Querier, input *database.Sensor) error {
 	ret := _m.Called(ctx, db, input)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB, *database.Sensor) error); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier, *database.Sensor) error); ok {
 		r0 = rf(ctx, db, input)
 	} else {
 		r0 = ret.Error(0)
@@ -88,11 +90,11 @@ func (_m *SensorRepository) GetAllSensor(ctx context.Context, db *sqlx.DB, pagin
 }
 
 // GetLastReportByNodeID provides a mock function with given fields: ctx, db, input
-func (_m *SensorRepository) GetLastReportByNodeID(ctx context.Context, db *sqlx.DB, input *database.Sensor) (*database.Sensor, error) {
+func (_m *SensorRepository) GetLastReportByNodeID(ctx context.Context, db pkg.Querier, input *database.Sensor) (*database.Sensor, error) {
 	ret := _m.Called(ctx, db, input)
 
 	var r0 *database.Sensor
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB, *database.Sensor) *database.Sensor); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier, *database.Sensor) *database.Sensor); ok {
 		r0 = rf(ctx, db, input)
 	} else {
 		if ret.Get(0) != nil {
@@ -101,7 +103,7 @@ func (_m *SensorRepository) GetLastReportByNodeID(ctx context.Context, db *sqlx.
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB, *database.Sensor) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, pkg.Querier, *database.Sensor) error); ok {
 		r1 = rf(ctx, db, input)
 	} else {
 		r1 = ret.Error(1)
@@ -111,11 +113,11 @@ func (_m *SensorRepository) GetLastReportByNodeID(ctx context.Context, db *sqlx.
 }
 
 // GetSensorByID provides a mock function with given fields: ctx, db, input
-func (_m *SensorRepository) GetSensorByID(ctx context.Context, db *sqlx.DB, input *database.Sensor) (*database.Sensor, error) {
+func (_m *SensorRepository) GetSensorByID(ctx context.Context, db pkg.Querier, input *database.Sensor) (*database.Sensor, error) {
 	ret := _m.Called(ctx, db, input)
 
 	var r0 *database.Sensor
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB, *database.Sensor) *database.Sensor); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier, *database.Sensor) *database.Sensor); ok {
 		r0 = rf(ctx, db, input)
 	} else {
 		if ret.Get(0) != nil {
@@ -124,7 +126,7 @@ func (_m *SensorRepository) GetSensorByID(ctx context.Context, db *sqlx.DB, inpu
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB, *database.Sensor) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, pkg.Querier, *database.Sensor) error); ok {
 		r1 = rf(ctx, db, input)
 	} else {
 		r1 = ret.Error(1)
@@ -134,11 +136,11 @@ func (_m *SensorRepository) GetSensorByID(ctx context.Context, db *sqlx.DB, inpu
 }
 
 // GetSensorByRange provides a mock function with given fields: ctx, db, input
-func (_m *SensorRepository) GetSensorByRange(ctx context.Context, db *sqlx.DB, input *iot_bemodel.GetProcessedDataRequest) ([]*database.Sensor, error) {
+func (_m *SensorRepository) GetSensorByRange(ctx context.Context, db pkg.Querier, input *iot_bemodel.GetProcessedDataRequest) ([]*database.Sensor, error) {
 	ret := _m.Called(ctx, db, input)
 
 	var r0 []*database.Sensor
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB, *iot_bemodel.GetProcessedDataRequest) []*database.Sensor); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier, *iot_bemodel.GetProcessedDataRequest) []*database.Sensor); ok {
 		r0 = rf(ctx, db, input)
 	} else {
 		if ret.Get(0) != nil {
@@ -147,7 +149,7 @@ func (_m *SensorRepository) GetSensorByRange(ctx context.Context, db *sqlx.DB, i
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB, *iot_bemodel.GetProcessedDataRequest) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, pkg.Querier, *iot_bemodel.GetProcessedDataRequest) error); ok {
 		r1 = rf(ctx, db, input)
 	} else {
 		r1 = ret.Error(1)
@@ -171,11 +173,11 @@ func (_m *SensorRepository) GetTableName() string {
 }
 
 // Store provides a mock function with given fields: ctx, db, input
-func (_m *SensorRepository) Store(ctx context.Context, db *sqlx.DB, input *database.Sensor) error {
+func (_m *SensorRepository) Store(ctx context.Context, db pkg.Querier, input *database.Sensor) error {
 	ret := _m.Called(ctx, db, input)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB, *database.Sensor) error); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier, *database.Sensor) error); ok {
 		r0 = rf(ctx, db, input)
 	} else {
 		r0 = ret.Error(0)
@@ -185,11 +187,11 @@ func (_m *SensorRepository) Store(ctx context.Context, db *sqlx.DB, input *datab
 }
 
 // UpdateSensorByID provides a mock function with given fields: ctx, db, input
-func (_m *SensorRepository) UpdateSensorByID(ctx context.Context, db *sqlx.DB, input *database.Sensor) error {
+func (_m *SensorRepository) UpdateSensorByID(ctx context.Context, db pkg.Querier, input *database.Sensor) error {
 	ret := _m.Called(ctx, db, input)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB, *database.Sensor) error); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier, *database.Sensor) error); ok {
 		r0 = rf(ctx, db, input)
 	} else {
 		r0 = ret.Error(0)
