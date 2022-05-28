@@ -1,4 +1,4 @@
-package sensor
+package node
 
 import (
 	"testing"
@@ -7,14 +7,13 @@ import (
 )
 
 func Test_repository_GetTableName(t *testing.T) {
-
 	tests := []struct {
 		name string
 		want string
 	}{
 		{
-			name: "sensors",
-			want: "sensors",
+			name: "nodes",
+			want: "nodes",
 		},
 	}
 	for _, tt := range tests {

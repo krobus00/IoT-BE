@@ -16,13 +16,18 @@ func (svc *service) GetAllSensor(ctx context.Context, payload *kro_model.Paginat
 	resp := new(kro_model.PaginationResponse)
 	items := make([]*model.SensorResponse, 0)
 
-	sensors, count, err := svc.repository.SensorRepository.GetAllSensor(ctx, svc.db, payload)
+	sensors, err := svc.repository.SensorRepository.GetAllSensor(ctx, svc.db, payload)
 	if err != nil {
 		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetAllSensor, err))
 		return nil, err
 	}
 	if sensors == nil {
 		return nil, nil
+	}
+	count, err := svc.repository.SensorRepository.CountSensors(ctx, svc.db)
+	if err != nil {
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetAllSensor, err))
+		return nil, err
 	}
 	for _, sensor := range sensors {
 		items = append(items, &model.SensorResponse{

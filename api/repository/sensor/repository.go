@@ -20,18 +20,20 @@ const (
 	tracingDeleteSensorByID      = "DeleteSensorByID"
 	tracingGetLastReportByNodeID = "GetLastReportByNodeID"
 	tracingGetSensorByRange      = "GetSensorByRange"
+	tracingCountSensors          = "CountSensors"
 )
 
 type (
 	SensorRepository interface {
 		GetTableName() string
-		GetAllSensor(ctx context.Context, db *sqlx.DB, paginationRequest *kro_model.PaginationRequest, config ...kro_model.Config) ([]*db_models.Sensor, int64, error)
+		GetAllSensor(ctx context.Context, db *sqlx.DB, paginationRequest *kro_model.PaginationRequest, config ...kro_model.Config) ([]*db_models.Sensor, error)
 		Store(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) error
 		GetSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) (*db_models.Sensor, error)
 		UpdateSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) error
 		DeleteSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) error
 		GetLastReportByNodeID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) (*db_models.Sensor, error)
 		GetSensorByRange(ctx context.Context, db *sqlx.DB, input *model.GetProcessedDataRequest) ([]*db_models.Sensor, error)
+		CountSensors(ctx context.Context, db *sqlx.DB) (int64, error)
 	}
 	repository struct {
 		logger infrastructure.Logger
