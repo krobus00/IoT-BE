@@ -42,7 +42,7 @@ func (r *repository) GetSensorByRange(ctx context.Context, db *sqlx.DB, input *m
 	err = db.SelectContext(ctx, &results, query, args...)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, nil
+			return results, nil
 		}
 		r.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetSensorByRange, err))
 		return nil, err

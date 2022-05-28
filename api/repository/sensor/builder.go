@@ -65,7 +65,6 @@ func (r *repository) buildUpdateQuery(input *db_models.Sensor) sq.UpdateBuilder 
 		"humidity":    input.Humidity,
 		"temperature": input.Temperature,
 		"heat_index":  input.HeatIndex,
-		"created_at":  time.Now().Unix(),
 		"updated_at":  time.Now().Unix(),
 	}
 	updateBuilder := sq.Update(r.GetTableName()).SetMap(vals)
