@@ -21,11 +21,11 @@ const (
 type (
 	Repository interface {
 		GetTableName() string
-		GetAll{{ .EntityName }}(ctx context.Context, db *sqlx.DB, paginationRequest *kro_model.PaginationRequest, config ...kro_model.Config) ([]*db_models.{{ .EntityName }}, int64, error)
-		Store(ctx context.Context, db *sqlx.DB, input *db_models.{{ .EntityName }}) error
-		Get{{ .EntityName }}ByID(ctx context.Context, db *sqlx.DB, input *db_models.{{ .EntityName }}) (*db_models.{{ .EntityName }}, error)
-		Update{{ .EntityName }}ByID(ctx context.Context, db *sqlx.DB, input *db_models.{{ .EntityName }}) error
-		Delete{{ .EntityName }}ByID(ctx context.Context, db *sqlx.DB, input *db_models.{{ .EntityName }}) error
+		GetAll{{ .EntityName }}(ctx context.Context, db kro_pkg.Querier, paginationRequest *kro_model.PaginationRequest, config ...kro_model.Config) ([]*db_models.{{ .EntityName }}, int64, error)
+		Store(ctx context.Context, db kro_pkg.Querier, input *db_models.{{ .EntityName }}) error
+		Get{{ .EntityName }}ByID(ctx context.Context, db kro_pkg.Querier, input *db_models.{{ .EntityName }}) (*db_models.{{ .EntityName }}, error)
+		Update{{ .EntityName }}ByID(ctx context.Context, db kro_pkg.Querier, input *db_models.{{ .EntityName }}) error
+		Delete{{ .EntityName }}ByID(ctx context.Context, db kro_pkg.Querier, input *db_models.{{ .EntityName }}) error
 	}
 	repository struct {
 		logger infrastructure.Logger

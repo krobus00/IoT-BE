@@ -30,9 +30,9 @@ func (c *Controller) HandleRegister(eCtx echo.Context) error {
 	if err != nil {
 		return err
 	}
-
+	message := fmt.Sprintf("new node with id %s", *id)
 	resp := kro_model.Response{
-		Message: fmt.Sprintf("new node with id %s", *id),
+		Message: &message,
 	}
 
 	return eCtx.JSON(http.StatusOK, resp)

@@ -12,6 +12,7 @@ import (
 	"github.com/krobus00/iot-be/api/route"
 	"github.com/krobus00/iot-be/api/service"
 	"github.com/krobus00/iot-be/infrastructure"
+	kro_pkg "github.com/krobus00/krobot-building-block/pkg"
 	"go.uber.org/fx"
 )
 
@@ -30,7 +31,7 @@ func appBootstrap(
 	handler infrastructure.Router,
 	env infrastructure.Env,
 	logger infrastructure.Logger,
-	database infrastructure.Database,
+	database kro_pkg.Database,
 ) {
 
 	appStop := func(context.Context) error {

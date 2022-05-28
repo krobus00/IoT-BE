@@ -9,7 +9,7 @@ import (
 	kro_model "github.com/krobus00/krobot-building-block/model"
 	kro_util "github.com/krobus00/krobot-building-block/util"
 )
-func (r *repository) GetAll{{ .EntityName }}(ctx context.Context, db *sqlx.DB, paginationRequest *kro_model.PaginationRequest, config ...kro_model.Config) ([]*db_models.{{ .EntityName }}, int64, error) {
+func (r *repository) GetAll{{ .EntityName }}(ctx context.Context, db kro_pkg.Querier, paginationRequest *kro_model.PaginationRequest, config ...kro_model.Config) ([]*db_models.{{ .EntityName }}, int64, error) {
 	span := kro_util.StartTracing(ctx, tag, tracingGetAll{{ .EntityName }})
 	defer span.Finish()
 

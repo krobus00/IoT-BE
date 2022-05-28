@@ -10,6 +10,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	enTranslations "github.com/go-playground/validator/v10/translations/en"
 	idTranslations "github.com/go-playground/validator/v10/translations/id"
+	kro_pkg "github.com/krobus00/krobot-building-block/pkg"
 	"github.com/labstack/echo/v4"
 )
 
@@ -36,7 +37,7 @@ func NewTranslator() *ut.UniversalTranslator {
 	return uni
 }
 
-func NewValidator(db Database, trans *ut.UniversalTranslator) echo.Validator {
+func NewValidator(db kro_pkg.Database, trans *ut.UniversalTranslator) echo.Validator {
 	validate := validator.New()
 	registerTagNameWithLabel(validate)
 	id, _ := trans.GetTranslator("id")

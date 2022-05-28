@@ -1,20 +1,15 @@
 package infrastructure
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
+	kro_pkg "github.com/krobus00/krobot-building-block/pkg"
 )
 
-type Database struct {
-	SqlxDB *sqlx.DB
-	DB     *sql.DB
-}
-
-func NewDatabase(env Env) Database {
+func NewDatabase(env Env) kro_pkg.Database {
 	USER := env.DBUsername
 	PASS := env.DBPassword
 	HOST := env.DBHost
@@ -26,9 +21,6 @@ func NewDatabase(env Env) Database {
 	if err != nil {
 		log.Fatalf("Connection setup failed: %v", err)
 	}
-
-	return Database{
-		DB:     conn.DB,
-		SqlxDB: conn,
-	}
+	wrapper := kro_pkg.NewDatabase(conn)
+	return *wrapper
 }

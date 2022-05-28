@@ -10,6 +10,8 @@ import (
 
 	model "github.com/krobus00/krobot-building-block/model"
 
+	pkg "github.com/krobus00/krobot-building-block/pkg"
+
 	sqlx "github.com/jmoiron/sqlx"
 
 	testing "testing"
@@ -21,18 +23,18 @@ type NodeRepository struct {
 }
 
 // CountNodes provides a mock function with given fields: ctx, db
-func (_m *NodeRepository) CountNodes(ctx context.Context, db *sqlx.DB) (int64, error) {
+func (_m *NodeRepository) CountNodes(ctx context.Context, db pkg.Querier) (int64, error) {
 	ret := _m.Called(ctx, db)
 
 	var r0 int64
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB) int64); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier) int64); ok {
 		r0 = rf(ctx, db)
 	} else {
 		r0 = ret.Get(0).(int64)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, pkg.Querier) error); ok {
 		r1 = rf(ctx, db)
 	} else {
 		r1 = ret.Error(1)
@@ -42,11 +44,11 @@ func (_m *NodeRepository) CountNodes(ctx context.Context, db *sqlx.DB) (int64, e
 }
 
 // FindNodeByID provides a mock function with given fields: ctx, db, input
-func (_m *NodeRepository) FindNodeByID(ctx context.Context, db *sqlx.DB, input *database.Node) (*database.Node, error) {
+func (_m *NodeRepository) FindNodeByID(ctx context.Context, db pkg.Querier, input *database.Node) (*database.Node, error) {
 	ret := _m.Called(ctx, db, input)
 
 	var r0 *database.Node
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB, *database.Node) *database.Node); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier, *database.Node) *database.Node); ok {
 		r0 = rf(ctx, db, input)
 	} else {
 		if ret.Get(0) != nil {
@@ -55,7 +57,7 @@ func (_m *NodeRepository) FindNodeByID(ctx context.Context, db *sqlx.DB, input *
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB, *database.Node) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, pkg.Querier, *database.Node) error); ok {
 		r1 = rf(ctx, db, input)
 	} else {
 		r1 = ret.Error(1)
@@ -109,11 +111,11 @@ func (_m *NodeRepository) GetTableName() string {
 }
 
 // Store provides a mock function with given fields: ctx, db, input
-func (_m *NodeRepository) Store(ctx context.Context, db *sqlx.DB, input *database.Node) error {
+func (_m *NodeRepository) Store(ctx context.Context, db pkg.Querier, input *database.Node) error {
 	ret := _m.Called(ctx, db, input)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB, *database.Node) error); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, pkg.Querier, *database.Node) error); ok {
 		r0 = rf(ctx, db, input)
 	} else {
 		r0 = ret.Error(0)

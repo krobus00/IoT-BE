@@ -30,8 +30,7 @@ func (c *Controller) HandleShowSensor(eCtx echo.Context) error {
 	}
 
 	response := &kro_model.Response{
-		Message: "Success",
-		Data:    resp,
+		Data: resp,
 	}
 
 	return eCtx.JSON(http.StatusOK, response)

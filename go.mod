@@ -3,6 +3,7 @@ module github.com/krobus00/iot-be
 go 1.17
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/Masterminds/squirrel v1.5.2
 	github.com/common-nighthawk/go-figure v0.0.0-20210622060536-734e95fb86be
 	github.com/getsentry/sentry-go v0.13.0
@@ -14,7 +15,7 @@ require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/joho/godotenv v1.4.0
-	github.com/krobus00/krobot-building-block v0.2.7
+	github.com/krobus00/krobot-building-block v0.3.1
 	github.com/labstack/echo/v4 v4.7.2
 	github.com/microcosm-cc/bluemonday v1.0.18
 	github.com/stretchr/testify v1.7.0
@@ -25,7 +26,7 @@ require (
 
 require (
 	github.com/BenJetson/humantime v0.0.0-20200514023344-f59ec2835a87 // indirect
-	github.com/DATA-DOG/go-sqlmock v1.5.0 // indirect
+	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
