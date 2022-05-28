@@ -16,13 +16,18 @@ func (svc *service) GetAllNodes(ctx context.Context, payload *kro_model.Paginati
 	resp := new(kro_model.PaginationResponse)
 	items := make([]*model.NodeResponse, 0)
 
-	nodes, count, err := svc.repository.NodeRepository.GetAllNodes(ctx, svc.db, payload)
+	nodes, err := svc.repository.NodeRepository.GetAllNodes(ctx, svc.db, payload)
 	if err != nil {
 		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetAllNodes, err))
 		return nil, err
 	}
 	if nodes == nil {
 		return nil, nil
+	}
+	count, err := svc.repository.NodeRepository.CountNodes(ctx, svc.db)
+	if err != nil {
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetAllNodes, err))
+		return nil, err
 	}
 	for _, node := range nodes {
 		items = append(items, &model.NodeResponse{

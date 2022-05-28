@@ -20,6 +20,27 @@ type NodeRepository struct {
 	mock.Mock
 }
 
+// CountNodes provides a mock function with given fields: ctx, db
+func (_m *NodeRepository) CountNodes(ctx context.Context, db *sqlx.DB) (int64, error) {
+	ret := _m.Called(ctx, db)
+
+	var r0 int64
+	if rf, ok := ret.Get(0).(func(context.Context, *sqlx.DB) int64); ok {
+		r0 = rf(ctx, db)
+	} else {
+		r0 = ret.Get(0).(int64)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB) error); ok {
+		r1 = rf(ctx, db)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // FindNodeByID provides a mock function with given fields: ctx, db, input
 func (_m *NodeRepository) FindNodeByID(ctx context.Context, db *sqlx.DB, input *database.Node) (*database.Node, error) {
 	ret := _m.Called(ctx, db, input)
@@ -44,7 +65,7 @@ func (_m *NodeRepository) FindNodeByID(ctx context.Context, db *sqlx.DB, input *
 }
 
 // GetAllNodes provides a mock function with given fields: ctx, db, paginationRequest, config
-func (_m *NodeRepository) GetAllNodes(ctx context.Context, db *sqlx.DB, paginationRequest *model.PaginationRequest, config ...model.Config) ([]*database.Node, int64, error) {
+func (_m *NodeRepository) GetAllNodes(ctx context.Context, db *sqlx.DB, paginationRequest *model.PaginationRequest, config ...model.Config) ([]*database.Node, error) {
 	_va := make([]interface{}, len(config))
 	for _i := range config {
 		_va[_i] = config[_i]
@@ -63,21 +84,14 @@ func (_m *NodeRepository) GetAllNodes(ctx context.Context, db *sqlx.DB, paginati
 		}
 	}
 
-	var r1 int64
-	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB, *model.PaginationRequest, ...model.Config) int64); ok {
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, *sqlx.DB, *model.PaginationRequest, ...model.Config) error); ok {
 		r1 = rf(ctx, db, paginationRequest, config...)
 	} else {
-		r1 = ret.Get(1).(int64)
+		r1 = ret.Error(1)
 	}
 
-	var r2 error
-	if rf, ok := ret.Get(2).(func(context.Context, *sqlx.DB, *model.PaginationRequest, ...model.Config) error); ok {
-		r2 = rf(ctx, db, paginationRequest, config...)
-	} else {
-		r2 = ret.Error(2)
-	}
-
-	return r0, r1, r2
+	return r0, r1
 }
 
 // GetTableName provides a mock function with given fields:
