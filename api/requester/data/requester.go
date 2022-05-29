@@ -21,7 +21,7 @@ const (
 )
 
 type (
-	Requester interface {
+	DataRequester interface {
 		CallResamplingData(context context.Context, payload *model.GetAllSensorResponse) ([]*model.GetSampledData, error)
 		CallForecastData(context context.Context, payload *model.GetForecastRequest) ([]*model.GetForecastData, error)
 	}
@@ -34,7 +34,7 @@ type (
 
 func New(
 	infrastructure infrastructure.Infrastructure,
-) Requester {
+) DataRequester {
 	return &requester{
 		logger:     infrastructure.Logger,
 		env:        infrastructure.Env,
