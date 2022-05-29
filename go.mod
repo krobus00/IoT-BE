@@ -15,7 +15,7 @@ require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/joho/godotenv v1.4.0
-	github.com/krobus00/krobot-building-block v0.3.1
+	github.com/krobus00/krobot-building-block v0.3.2
 	github.com/labstack/echo/v4 v4.7.2
 	github.com/microcosm-cc/bluemonday v1.0.18
 	github.com/stretchr/testify v1.7.0

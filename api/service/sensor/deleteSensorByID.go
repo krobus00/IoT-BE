@@ -16,18 +16,17 @@ func (svc *service) DeleteSensorByID(ctx context.Context, payload *model.DeleteS
 	span := kro_util.StartTracing(ctx, tag, tracingDeleteSensorByID)
 	defer span.Finish()
 
-	todo, err := svc.GetSensorByID(ctx, &model.ShowSensorRequest{ID: payload.ID})
+	sensor, err := svc.repository.SensorRepository.GetSensorByID(ctx, svc.db, &db_models.Sensor{ID: payload.ID})
 	if err != nil {
-		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingDeleteSensorByID, err))
+		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetSensorByID, err))
 		return err
 	}
-
-	if todo == nil {
+	if sensor == nil {
 		return kro_model.NewHttpCustomError(http.StatusNotFound, errors.New("Sensor Not Found"))
 	}
 
 	input := &db_models.Sensor{
-		ID: payload.ID,
+		ID: sensor.ID,
 	}
 
 	err = svc.repository.SensorRepository.DeleteSensorByID(ctx, svc.db, input)
