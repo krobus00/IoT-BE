@@ -24,6 +24,7 @@ func (svc *service) StoreSensor(ctx context.Context, payload *model.CreateSensor
 	err := svc.repository.SensorRepository.Store(ctx, svc.db, input)
 	if err != nil {
 		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingStoreSensor, err))
+		return err
 	}
 
 	return nil

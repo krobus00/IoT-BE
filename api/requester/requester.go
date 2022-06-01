@@ -9,7 +9,7 @@ import (
 type Requester struct {
 	fx.In
 
-	DataRequester data.Requester
+	DataRequester data.DataRequester
 	// INJECT REQUESTER HERE
 }
 

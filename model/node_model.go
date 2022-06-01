@@ -10,12 +10,12 @@ type NodeResponse struct {
 
 type RegisterRequest struct {
 	City      string  `json:"city" validate:"required" label:"city"`
-	Longitude float64 `json:"longitude" validate:"required" label:"longitude"`
-	Latitude  float64 `json:"latitude" validate:"required" label:"latitude"`
+	Longitude float64 `json:"longitude" validate:"required,uniquedb=nodes longitude" label:"longitude"`
+	Latitude  float64 `json:"latitude" validate:"required,uniquedb=nodes latitude" label:"latitude"`
 }
 
 type GetAccessTokenRequest struct {
-	ID string `json:"id" validate:"required" label:"id"`
+	ID string `json:"id" validate:"required,existdb=nodes node_id" label:"id"`
 }
 
 type GetAccessTokenResponse struct {
@@ -23,7 +23,7 @@ type GetAccessTokenResponse struct {
 }
 
 type GetNodeInfoPayload struct {
-	ID string `param:"id" validate:"required" label:"id"`
+	ID string `param:"id" validate:"required,existdb=nodes node_id" label:"id"`
 }
 
 type GetNodeInfoResponse struct {

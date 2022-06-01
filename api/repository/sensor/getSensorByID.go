@@ -6,12 +6,12 @@ import (
 	"fmt"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/jmoiron/sqlx"
 	db_models "github.com/krobus00/iot-be/model/database"
+	kro_pkg "github.com/krobus00/krobot-building-block/pkg"
 	kro_util "github.com/krobus00/krobot-building-block/util"
 )
 
-func (r *repository) GetSensorByID(ctx context.Context, db *sqlx.DB, input *db_models.Sensor) (*db_models.Sensor, error) {
+func (r *repository) GetSensorByID(ctx context.Context, db kro_pkg.Querier, input *db_models.Sensor) (*db_models.Sensor, error) {
 	span := kro_util.StartTracing(ctx, tag, tracingGetSensorByID)
 	defer span.Finish()
 

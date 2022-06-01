@@ -7,25 +7,19 @@ import (
 )
 
 func Test_repository_GetTableName(t *testing.T) {
-	type fields struct {
-		logger infrastructure.Logger
-	}
+
 	tests := []struct {
-		name   string
-		fields fields
-		want   string
+		name string
+		want string
 	}{
 		{
-			name:   "sensors",
-			fields: fields{},
-			want:   "sensors",
+			name: "sensors",
+			want: "sensors",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			r := &repository{
-				logger: tt.fields.logger,
-			}
+			r := New(infrastructure.Infrastructure{})
 			if got := r.GetTableName(); got != tt.want {
 				t.Errorf("repository.GetTableName() = %v, want %v", got, tt.want)
 			}

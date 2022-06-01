@@ -20,22 +20,22 @@ type CreateSensorRequest struct {
 }
 
 type ShowSensorRequest struct {
-	ID string `param:"id" validate:"required" label:"id"`
+	ID string `param:"id" validate:"required,existdb=sensors id" label:"id"`
 }
 
 type UpdateSensorRequest struct {
-	ID          string  `param:"id" validate:"required" label:"id"`
+	ID          string  `param:"id" validate:"required,existdb=sensors id" label:"id"`
 	Humidity    float64 `json:"humidity" validate:"required" label:"humidity"`
 	Temperature float64 `json:"temperature" validate:"required" label:"temperature"`
 	HeatIndex   float64 `json:"heatIndex" validate:"required" label:"heatIndex"`
 }
 
 type DeleteSensorRequest struct {
-	ID string `param:"id" validate:"required" label:"id"`
+	ID string `param:"id" validate:"required,existdb=sensors id" label:"id"`
 }
 
 type GetProcessedDataRequest struct {
-	NodeID    string `param:"nodeId" validate:"required" label:"nodeId"`
+	NodeID    string `param:"nodeId" validate:"required,existdb=sensors node_id" label:"nodeId"`
 	StartDate int64  `json:"startDate"`
 	EndDate   int64  `json:"endDate"`
 }
@@ -48,7 +48,7 @@ type GetProcessedDataResponse struct {
 }
 
 type GetForecastDataRequest struct {
-	NodeID string `param:"nodeId" validate:"required" label:"nodeId"`
+	NodeID string `param:"nodeId" validate:"required,existdb=sensors node_id" label:"nodeId"`
 }
 
 type GetForecastDataResponse struct {

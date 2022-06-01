@@ -55,6 +55,29 @@ func (_m *SensorService) GetAllSensor(ctx context.Context, payload *krobot_build
 	return r0, r1
 }
 
+// GetForecastData provides a mock function with given fields: ctx, payload
+func (_m *SensorService) GetForecastData(ctx context.Context, payload *model.GetForecastDataRequest) (*model.GetForecastDataResponse, error) {
+	ret := _m.Called(ctx, payload)
+
+	var r0 *model.GetForecastDataResponse
+	if rf, ok := ret.Get(0).(func(context.Context, *model.GetForecastDataRequest) *model.GetForecastDataResponse); ok {
+		r0 = rf(ctx, payload)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*model.GetForecastDataResponse)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, *model.GetForecastDataRequest) error); ok {
+		r1 = rf(ctx, payload)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetResampledData provides a mock function with given fields: ctx, payload
 func (_m *SensorService) GetResampledData(ctx context.Context, payload *model.GetProcessedDataRequest) (*model.GetProcessedDataResponse, error) {
 	ret := _m.Called(ctx, payload)
