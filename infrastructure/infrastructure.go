@@ -5,6 +5,7 @@ import (
 
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-redis/redis/v8"
+	"github.com/krobus00/iot-be/infrastructure/validator"
 	kro_pkg "github.com/krobus00/krobot-building-block/pkg"
 	"go.uber.org/fx"
 )
@@ -12,13 +13,14 @@ import (
 type Infrastructure struct {
 	fx.In
 
-	Logger     Logger
-	Translator *ut.UniversalTranslator
-	Router     Router
-	Env        Env
-	Database   kro_pkg.Database
-	HttpClient *http.Client
-	Redis      *redis.Client
+	Logger          Logger
+	Translator      *ut.UniversalTranslator
+	Router          Router
+	Env             Env
+	Database        kro_pkg.Database
+	HttpClient      *http.Client
+	Redis           *redis.Client
+	CustomValidator validator.CustomValidator
 }
 
 func NewInfrastructure() *Infrastructure {
@@ -34,6 +36,8 @@ var Module = fx.Options(
 	fx.Provide(NewDatabase),
 	fx.Provide(NewRedisClient),
 	fx.Provide(NewValidator),
+	fx.Provide(validator.New),
+	// fx.Invoke(RegisterCustomValidation),
 
 	fx.Invoke(InitSentry),
 

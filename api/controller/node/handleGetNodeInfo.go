@@ -13,7 +13,7 @@ func (c *Controller) HandleGetNode(eCtx echo.Context) error {
 
 	ctx := eCtx.Request().Context()
 
-	span := kro_util.StartTracing(ctx, tag, tracingGetPagination)
+	span := kro_util.StartTracing(ctx, tag, tracingGetNodeInfo)
 	defer span.Finish()
 
 	ctx = context.WithValue(ctx, "nodeId", eCtx.Get("nodeId").(string))
