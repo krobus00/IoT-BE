@@ -14,5 +14,8 @@ mock:
 	mockery --dir=./infrastructure --case=underscore --all --disable-version-string && \
 	mockery --dir=./util/ --case=underscore --all --disable-version-string
 
+test:
+	go test ./... -coverprofile cover.out && go tool cover -func cover.out
+
 cover:
 	go test -cover -coverprofile=cover.out `go list ./...` && go tool cover -html=cover.out

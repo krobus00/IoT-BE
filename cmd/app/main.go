@@ -8,5 +8,5 @@ import (
 
 func main() {
 	godotenv.Load()
-	fx.New(bootstrap.AppModule, fx.NopLogger).Run()
+	fx.New(bootstrap.AppModule).Run()
 }

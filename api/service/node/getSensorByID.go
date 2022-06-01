@@ -2,10 +2,13 @@ package node
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"net/http"
 
 	"github.com/krobus00/iot-be/model"
 	db_models "github.com/krobus00/iot-be/model/database"
+	kro_model "github.com/krobus00/krobot-building-block/model"
 	kro_util "github.com/krobus00/krobot-building-block/util"
 )
 
@@ -26,7 +29,7 @@ func (svc *service) GetNodeInfoByID(ctx context.Context, payload *model.GetNodeI
 	}
 	if node == nil {
 		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetNodeInfo, err))
-		return nil, err
+		return nil, kro_model.NewHttpCustomError(http.StatusNotFound, errors.New("Node Not Found"))
 	}
 
 	sensorPayload := &db_models.Sensor{
@@ -36,6 +39,9 @@ func (svc *service) GetNodeInfoByID(ctx context.Context, payload *model.GetNodeI
 	if err != nil {
 		svc.logger.Zap.Error(fmt.Sprintf("%s %s with: %v", tag, tracingGetNodeInfo, err))
 		return nil, err
+	}
+	if lastReport == nil {
+		lastReport = &db_models.Sensor{}
 	}
 	resp.NodeResponse = model.NodeResponse{
 		ID:        node.ID,

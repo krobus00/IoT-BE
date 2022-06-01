@@ -8,8 +8,8 @@ import (
 
 type (
 	CustomValidator interface {
-		UniqueValidator() validator.Func
-		ExistValidator() validator.Func
+		UniqueValidator(fl validator.FieldLevel) bool
+		ExistValidator(fl validator.FieldLevel) bool
 	}
 	customValidator struct {
 		db kro_pkg.Database
